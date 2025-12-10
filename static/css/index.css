@@ -323,3 +323,76 @@ strong, b,
   color: var(--primary-color) !important;
   font-weight: 700 !important;
 }
+
+/* =========================================
+   People Section - Modern Grid Cards
+   ========================================= */
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* PCでは2列 */
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.person-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-secondary); /* または rgba(255,255,255,0.03) */
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.25rem 1.5rem;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ホバー時のエフェクト（Web3 Glow） */
+.person-card:hover {
+  background: var(--bg-accent);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); /* 青白い光 */
+  transform: translateY(-2px);
+}
+
+.person-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.person-name {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+.person-role {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.arrow-icon {
+  color: var(--text-dim);
+  font-size: 1.2rem;
+  transition: var(--transition);
+  opacity: 0.5;
+}
+
+.person-card:hover .arrow-icon {
+  color: var(--primary-color);
+  transform: translate(2px, -2px); /* 右上に少し動く */
+  opacity: 1;
+}
+
+/* モバイル対応（スマホでは1列にする） */
+@media screen and (max-width: 768px) {
+  .people-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

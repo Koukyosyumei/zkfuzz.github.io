@@ -42,9 +42,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   </noscript>
   
-  <!--<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">-->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
   <script defer src="static/js/bulma-carousel.min.js"></script>
@@ -85,6 +84,7 @@
               Foundation and Framework for Effective Fuzzing of <br>Zero-Knowledge Circuits
             </h2>
             
+	    <!--
             <div class="is-size-5 publication-authors">
               <span class="author-block">
                 <a href="https://koukyosyumei.github.io/">Hideaki Takahashi</a>,</span>
@@ -101,19 +101,36 @@
               <br>
               <span class="author-block" style="font-weight: bold; color: #363636;">IEEE Symposium on Security and Privacy (S&P) 2026</span>
             </div>
+	    -->
 
             <div class="column has-text-centered">
               <div class="publication-links">
                 <span class="link-block">
-                  <a href="https://www.computer.org/csdl/proceedings-article/sp/2026/606500a901/2bojvL4Zswo target="_blank"
+                  <a href="https://www.computer.org/csdl/proceedings-article/sp/2026/606500a901/2bojvL4Zswo"
                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                     <i class="fas fa-file-pdf"></i>
                   </span>
-                  <span>Paper</span>
+                  <span>Paper (IEEE S&P'26)</span>
                 </a>
               </span>
 
+              <span class="link-block">
+                <a href="https://github.com/Koukyosyumei/zkFuzz" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code&nbsp;</span>
+                  <img
+                    src="https://img.shields.io/github/stars/Koukyosyumei/zkFuzz?style=social"
+                    alt=" GitHub stars"
+                    style="height: 18px;"
+                  />
+                </a>
+              </span>
+
+              <!--
               <span class="link-block">
                 <a href="https://github.com/Koukyosyumei/zkFuzz" target="_blank"
                 class="external-link button is-normal is-rounded is-dark">
@@ -123,6 +140,7 @@
                 <span>Code</span>
               </a>
             </span>
+            -->
 
             <span class="link-block">
               <a href="https://arxiv.org/abs/2504.11961" target="_blank"
@@ -130,7 +148,7 @@
               <span class="icon">
                 <i class="ai ai-arxiv"></i>
               </span>
-              <span>arXiv</span>
+              <span>arXiv (2504.11961)</span>
             </a>
           </span>
             </div>
@@ -160,7 +178,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Overview</h2>
+        <h2 class="title is-3">Securing the Zero-Knowledge Future</h2>
         <div class="content has-text-justified">
           <p>
             Zero-Knowledge Proofs (ZKPs) enable privacy-preserving computations and serve as a cornerstone for trustless systems. This project conducts research on both the theoretical foundations and practical implementations of effective fuzzers and verifiers to ensure the security of these systems.
@@ -171,6 +189,41 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">What are Zero-Knowledge Proofs?</h2>
+        <div class="content has-text-justified">
+          <p>
+            Imagine being able to prove to a bouncer that you are over 21 years old, without handing over your ID card or revealing your actual birth date.
+          </p>
+          <p>
+            <strong>Zero-Knowledge Proofs (ZKPs)</strong> allow one party (the <em>Prover</em>) to prove to another (the <em>Verifier</em>) that a statement is true, without revealing any information beyond the validity of the statement itself.
+          </p>
+          
+          <div class="columns is-vcentered" style="margin-top: 20px;">
+            <div class="column is-6">
+              <h4 class="title is-5"><i class="fas fa-shield-alt"></i> Privacy</h4>
+              <p>
+                Users can verify computations (like a bank transfer) without exposing sensitive data (like the account balance or sender identity) on a public blockchain.
+              </p>
+            </div>
+            <div class="column is-6">
+              <h4 class="title is-5"><i class="fas fa-expand-arrows-alt"></i> Scalability</h4>
+              <p>
+                Complex computations can be performed off-chain. The blockchain only needs to verify the tiny ZK proof, which is exponentially faster and cheaper than re-running the computation.
+              </p>
+            </div>
+          </div>
+
+          <article class="message is-dark">
+            <div class="message-body">
+              <strong>The Security Challenge:</strong> While the cryptography behind ZKPs is robust, the <em>circuits</em> (the code written by developers) are prone to bugs. If a circuit is "under-constrained," it might allow a Prover to generate a valid proof for a false statement. <strong>This is exactly what zkFuzz is designed to detect.</strong>
+            </div>
+          </article>
+        </div>
   </div>
 </section>
 
@@ -221,6 +274,7 @@ cargo build --release</code></pre>
 	  <h4 class="title is-5">Usage</h4>
 	  <p>Run <strong>zkFuzz</strong> using your circuit file written in Circom:</p>
 	  <pre><code class="language-bash">zkfuzz ./tests/sample/iszero_vuln.circom</code></pre>
+    <img src="static/images/zkfuzz-cli-example-usage.gif">
         </div>
   </div>
 </section>
@@ -346,6 +400,48 @@ month =May} </code></pre>
           </div>
 	</li>
         </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">People</h2>
+    
+    <div class="people-grid">
+      
+      <a href="https://koukyosyumei.github.io" target="_blank" class="person-card">
+        <div class="person-info">
+          <span class="person-name">Hideaki Takahashi</span>
+          <span class="person-role">Columbia University</span>
+        </div>
+        <span class="arrow-icon">↗</span>
+      </a>
+
+      <a href="https://example.com/bob" target="_blank" class="person-card">
+        <div class="person-info">
+          <span class="person-name">Jihwan Kim</span>
+          <span class="person-role">Columbia University</span>
+        </div>
+        <span class="arrow-icon">↗</span>
+      </a>
+
+      <a href="https://www.cs.columbia.edu/~suman/" target="_blank" class="person-card">
+        <div class="person-info">
+          <span class="person-name">Suman Jana</span>
+          <span class="person-role">Columbia University</span>
+        </div>
+        <span class="arrow-icon">↗</span>
+      </a>
+
+      <a href="https://www.cs.columbia.edu/~junfeng/" target="_blank" class="person-card">
+        <div class="person-info">
+          <span class="person-name">Junfeng Yang</span>
+          <span class="person-role">Columbia University</span>
+        </div>
+        <span class="arrow-icon">↗</span>
+      </a>
+
     </div>
   </div>
 </section>
