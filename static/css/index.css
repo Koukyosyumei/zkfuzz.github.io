@@ -718,3 +718,11 @@ strong, b,
 .copy-btn:hover {
   background: rgba(255,255,255,0.2);
 }
+
+/* 個別の色調整（もしarXivだけ色を変えたい場合など） */
+/* arXivボタンだけ少し赤みを帯びさせる例 */
+.publication-links .button[href*="arxiv"]:hover {
+  background: rgba(220, 38, 38, 0.15) !important;
+  border-color: #f87171 !important;
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.5), inset 0 0 10px rgba(220, 38, 38, 0.2) !important;
+}

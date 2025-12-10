@@ -412,7 +412,7 @@
         <thead>
           <tr>
             <th>Project / Library</th>
-            <th>Vulnerability Type</th>
+            <th>DSL</th>
             <th>Description</th>
             <th>Status</th>
           </tr>
@@ -420,19 +420,19 @@
         <tbody>
           <tr>
             <td><strong>zk-regex</strong></td>
-            <td><span class="tag is-danger is-light">Under-constrained</span></td>
+            <td><span class="tag is-danger is-light">Circom</span></td>
             <td>Missing range checks in regex verification allowing arbitrary string acceptance.</td>
-            <td><span class="icon has-text-success"><i class="fas fa-exclamation-circle"></i></span> Fixed</td>
+            <td><span class="icon has-text-warning"><i class="fas fa-exclamation-circle"></i></span> Confirmed</td>
           </tr>
           <tr>
             <td><strong>passport-zk-circuits</strong></td>
-            <td><span class="tag is-danger is-light">Under-constrained</span></td>
+            <td><span class="tag is-danger is-light">Circom</span></td>
             <td>Missing range checks in division allowing identity forgery.</td>
             <td><span class="icon has-text-success"><i class="fas fa-check-circle"></i></span> Fixed</td>
           </tr>
           <tr>
             <td><strong>zvm (Tokamak Network)</strong></td>
-            <td><span class="tag is-danger is-light">Under-constrained</span></td>
+            <td><span class="tag is-danger is-light">Circom</span></td>
             <td>Misuse of <code>assert</code> causing computation aborts not constrained in the circuit.</td>
             <td><span class="icon has-text-warning"><i class="fas fa-exclamation-circle"></i></span> Confirmed</td>
           </tr>
@@ -484,14 +484,37 @@
     <h2 class="title is-3 has-text-centered">Publications</h2>
     <div class="content">
       <ul>
-        <li style="margin-bottom: 20px;">
-          <strong>zkFuzz: Foundation and Framework for Effective Fuzzing of Zero-Knowledge Circuits</strong><br>
-          Hideaki Takahashi, Jihwan Kim, Suman Jana, Junfeng Yang<br>
-          <em>IEEE Symposium on Security and Privacy (S&P), 2026</em><br>
-          [<a href="https://arxiv.org/pdf/2504.11961v2.pdf">PDF</a>] 
-          [<a href="https://arxiv.org/abs/2504.11961">arXiv</a>] 
-          [<a href="https://github.com/Koukyosyumei/zkFuzz">Code</a>]
-          <div style="margin-top: 20px;">
+        <li style="margin-bottom: 30px;">
+          <span style="font-size: 1.2em; font-weight: 700; color: var(--text-primary);">
+            zkFuzz: Foundation and Framework for Effective Fuzzing of Zero-Knowledge Circuits
+          </span>
+          <br>
+          <span style="color: var(--text-secondary);">
+            Hideaki Takahashi, Jihwan Kim, Suman Jana, Junfeng Yang
+          </span>
+          <br>
+          <em style="color: var(--primary-color); font-weight: 500;">
+            IEEE Symposium on Security and Privacy (S&P), 2026
+          </em>
+          <br>
+
+          <div class="publication-links" style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center;">
+            
+            <a href="https://arxiv.org/pdf/2504.11961v2.pdf" target="_blank" class="button is-small is-rounded">
+              <span class="icon"><i class="fas fa-file-pdf"></i></span>
+              <span>PDF</span>
+            </a>
+
+            <a href="https://arxiv.org/abs/2504.11961" target="_blank" class="button is-small is-rounded">
+              <span class="icon"><i class="ai ai-arxiv"></i></span>
+              <span>arXiv</span>
+            </a>
+
+            <a href="https://github.com/Koukyosyumei/zkFuzz" target="_blank" class="button is-small is-rounded">
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Code</span>
+            </a>
+
             <details>
               <summary class="button is-small is-rounded is-light" style="cursor: pointer;">
                 <span class="icon"><i class="fas fa-quote-right"></i></span>
@@ -515,8 +538,9 @@ address = {Los Alamitos, CA, USA},
 month =May} </code></pre>
               </div>
             </details>
+
           </div>
-	</li>
+        </li>
         </ul>
     </div>
   </div>
