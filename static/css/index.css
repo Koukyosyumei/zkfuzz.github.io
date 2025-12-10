@@ -987,3 +987,12 @@ strong, b,
   margin: 0;
   line-height: 1.4;
 }
+
+.gradient-text {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  display: inline-block; /* グラデーションを綺麗に見せるために必要 */
+}
