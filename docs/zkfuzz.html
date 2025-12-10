@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>zkFuzz | Command Line Interface & Configuration</title>
+  
+  <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+  <link rel="stylesheet" href="../static/css/bulma.min.css">
+  <link rel="stylesheet" href="../static/css/index.css">
+  <link rel="stylesheet" href="../static/css/fontawesome.all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Specific styles for documentation page */
+    .docs-header {
+      padding: 2rem 0;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+    }
+    
+    .docs-nav-link {
+      color: var(--text-secondary);
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .docs-nav-link:hover {
+      color: var(--primary-color);
+    }
+
+    /* Code block enhancements */
+    pre {
+      background: #1e1e1e !important;
+      border: 1px solid var(--border-color) !important;
+      border-radius: 8px !important;
+      padding: 1.5rem !important;
+      position: relative;
+    }
+    /* Remove the fake window dots from index.css for cleaner doc view, or keep them if you like the terminal look */
+    pre::before {
+      display: none; 
+    }
+    
+    code {
+      font-family: 'JetBrains Mono', monospace !important;
+      color: #e2e8f0 !important;
+      background: transparent !important;
+    }
+
+    /* Table for options */
+    .options-table td {
+      vertical-align: top;
+      padding: 0.75rem;
+      border-color: var(--border-color) !important;
+    }
+    .flag-name {
+      color: var(--primary-color);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    h2 {
+      margin-top: 3rem !important;
+      margin-bottom: 1.5rem !important;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.5rem;
+    }
+    
+    h3 {
+      margin-top: 2rem !important;
+      color: var(--text-primary) !important;
+    }
+
+    /* Details/Summary styling */
+    details {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+    details pre {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="docs-header">
+    <div class="container is-max-desktop">
+      <div class="columns is-vcentered is-mobile">
+        <div class="column">
+          <a href="../index.html" class="docs-nav-link">
+            <span class="icon"><i class="fas fa-arrow-left"></i></span>
+            <span>Back to Home</span>
+          </a>
+        </div>
+        <div class="column has-text-right">
+          <h1 class="title is-4" style="margin:0;">zkFuzz Docs</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container is-max-desktop">
+    <div class="content">
+      
+      <section id="basic-usage">
+        <h2 class="title is-3"><span class="icon mr-2">🧰</span> Basic Usage</h2>
+        <p>
+          zkFuzz’s CLI provides numerous options to tailor your fuzzing session. Below is a summary of the available options:
+        </p>
+
+        <pre><code>ZK Circuit Fuzzer
+
+USAGE:
+    zkfuzz [FLAGS] [OPTIONS] [--] [input]
+
+FLAGS:
+        --constraint_assert_dissabled    Does not add asserts in the generated code for === constraint equalities
+        --lessthan_dissabled             (zkFuzz) Does not detect overflow erros due to LessThan template
+        --print_ast                      (zkFuzz) Prints AST
+        --show_stats_of_ast              (zkFuzz) Prints the basic stats of AST
+        --print_stats                    (zkFuzz) Prints the stats of constraints
+        --print_stats_csv                (zkFuzz) Prints the stats of constraints in CSV format
+        --symbolic_template_params       (zkFuzz) Treats the template parameters of the main template as symbolic values
+        --save_output                    (zkFuzz) Save the output when the counterexample is found
+    -h, --help                           Prints help information
+    -V, --version                        Prints version information
+
+OPTIONS:
+    -l &lt;link_libraries&gt;                  Adds directory to library search path
+    -p, --prime &lt;prime&gt;
+            To choose the prime number to use to generate the circuit. Receives the name of the curve (bn128, bls12381,
+            goldilocks, grumpkin, pallas, vesta, secq256r1) [default: bn128]
+        --debug_prime &lt;debug_prime&gt;
+            (zkFuzz) Prime number for zkFuzz [default:
+            21888242871839275222246405745257275088548364400416034343698204186575808495617]
+        --search_mode &lt;search_mode&gt;
+            (zkFuzz) Search mode to find the counter example that shows the given circuit is not well-constrained [default: ga]
+        --heuristics_range &lt;heuristics_range&gt;
+            (zkFuzz) Heuristics range for zkFuzz [default: 100]
+        --path_to_mutation_setting &lt;path_to_mutation_setting&gt;
+            (zkFuzz) Path to the setting file for Mutation Testing [default: none]
+        --path_to_whitelist &lt;path_to_whitelist&gt;                  
+            (zkFuzz) Path to the white-lists file [default: none]
+
+ARGS:
+    &lt;input&gt;    Path to a circuit with a main component [default: ./circuit.circom]</code></pre>
+
+        <h3 class="title is-4">Example Command</h3>
+        <p>Run zkFuzz using your circuit file written in Circom:</p>
+        <pre><code class="language-bash">zkfuzz target.circom</code></pre>
+
+        <h3 class="title is-4">Example Output</h3>
+        <figure class="image">
+          <img src="../static/images/zkfuzz-cli-example-usage.gif" alt="zkFuzz CLI Result" style="border-radius: 8px; border: 1px solid var(--border-color);">
+          <figcaption class="is-size-7 has-text-centered has-text-grey mt-2">Example of zkFuzz execution output</figcaption>
+        </figure>
+      </section>
+
+      <section id="configuration" style="margin-top: 4rem;">
+        <h2 class="title is-3"><span class="icon mr-2">🔬</span> Fuzzing with Program Mutation</h2>
+        <p>
+          Fuzzing with program mutation mode (<code>ga</code> mode) supports a detailed configuration through the <code>path_to_mutation_setting</code> option. The configuration is specified as a JSON file.
+        </p>
+
+        <h3 class="title is-4">Schema Overview</h3>
+        <p>Here is an example of the JSON configuration schema:</p>
+
+        <pre><code class="language-json">{
+    "seed": 0,
+    "program_population_size": 30,
+    "input_population_size": 30,
+    "max_generations": 300,
+    "input_initialization_method": "random",
+    "trace_mutation_method": "constant",
+    "fitness_function": "error",
+    "mutation_rate": 0.3,
+    "crossover_rate": 0.5,
+    "operator_mutation_rate": 0.2,
+    "num_eliminated_individuals": 5,
+    "max_num_mutation_points": 10,
+    "input_update_interval": 1,
+    "input_generation_max_iteration": 30,
+    "input_generation_crossover_rate": 0.66,
+    "input_generation_mutation_rate": 0.5,
+    "input_generation_singlepoint_mutation_rate": 0.5,
+    "random_value_ranges": [
+        [   "-10", 
+            "10"
+        ],
+        [
+            "21888242871839275222246405745257275088548364400416034343698204186575808495517", 
+            "21888242871839275222246405745257275088548364400416034343698204186575808495617"
+        ]
+    ],
+    "random_value_probs": [
+        0.5,
+        0.5
+    ],
+    "save_fitness_scores": false
+}</code></pre>
+        <p class="is-size-6 has-text-grey">If the configuration JSON file omits some keys, the default values are used for those omitted keys.</p>
+
+        <details>
+          <summary><span class="icon"><i class="fas fa-list"></i></span> Click to view all configuration options</summary>
+          <pre><code class="language-yaml">- seed (u64)
+  - Purpose: Seed for random number generation to ensure reproducibility. If set to 0, a new seed is internally generated using the thread-local random number generator.
+  - Default: 0
+
+- program_population_size (usize)
+  - Purpose: Size of the program population in the genetic algorithm.
+  - Default: 30
+
+- input_population_size (usize)
+  - Purpose: Size of the input population in the genetic algorithm.
+  - Default: 30
+
+- max_generations (usize)
+  - Purpose: Maximum number of generations for the evolutionary process.
+  - Default: 500
+
+- input_initialization_method (String)
+  - Purpose: Method used to initialize inputs ("random", "fitness", "coverage").
+  - Default: "random"
+
+- trace_mutation_method (String)
+  - Purpose: Method used for trace mutation ("naive", "constant", "constant_operator", "constant_operator_add", "constant_operator_delete").
+  - Default: "constant_operator"
+
+- fitness_function (String)
+  - Purpose: Function used to evaluate fitness of solutions ("error", "const").
+  - Default: "error"
+
+- mutation_rate (f64)
+  - Purpose: Rate at which mutations occur in the genetic algorithm.
+  - Default: 0.3
+
+- crossover_rate (f64)
+  - Purpose: Rate at which crossover occurs in the genetic algorithm.
+  - Default: 0.5
+
+- operator_mutation_rate (f64)
+  - Purpose: Rate of mutation for operators in the genetic algorithm.
+  - Default: 0.1
+
+- runtime_mutation_rate (f64)
+  - Purpose: Specifies the mutation rate applied during runtime mutation processes.
+  - Default: 0.3
+
+- num_eliminated_individuals (usize)
+  - Purpose: The number of individuals with poor fitness eliminated in each generation.
+  - Default: 5
+
+- max_num_mutation_points (usize)
+  - Purpose: The maximum number of mutation points allowed in the symbolic trace.
+  - Default: 10
+
+- input_update_interval (usize)
+  - Purpose: Interval at which inputs are updated.
+  - Default: 1
+
+- input_generation_max_iteration (usize)
+  - Purpose: Maximum number of iterations for input generation.
+  - Default: 30
+
+- input_generation_crossover_rate (f64)
+  - Purpose: Crossover rate for input generation.
+  - Default: 0.66
+
+- input_generation_mutation_rate (f64)
+  - Purpose: Mutation rate for input generation.
+  - Default: 0.5
+
+- input_generation_singlepoint_mutation_rate (f64)
+  - Purpose: Single-point mutation rate for input generation.
+  - Default: 0.5
+
+- random_value_ranges (Array of Arrays)
+  - Purpose: Specifies ranges for random value generation. Each range is defined as a pair of big integers (provided as strings) representing the lower and upper bounds.
+  - Default: [["0", "2"], ["2", "11"], ["11", "21888242871839275222246405745257275088548364400416034343698204186575808495517"], ["21888242871839275222246405745257275088548364400416034343698204186575808495517", "21888242871839275222246405745257275088548364400416034343698204186575808495617"]]
+
+- random_value_probs (Array of f64)
+  - Purpose: Probabilities associated with each range in `random_value_ranges`.
+  - Default: [0.15, 0.34, 0.01, 0.5]
+
+- binary_mode_prob (f64)
+  - Purpose: Probability of restricting random input to only 0 or 1.
+  - Default: 0.0
+
+- binary_mode_search_level (usize)
+  - Purpose: Search depth for the binary pattern (x * (1 - x) === 0) check.
+  - Default: 1
+
+- binary_mode_warmup_round (f64)
+  - Purpose: Ratio of warmup rounds where binary_mode_prob is temporarily set to 1 upon detecting the binary pattern.
+  - Default: 0.0
+
+- zero_div_attempt_prob (f64)
+  - Purpose: Probability of invoking the quadratic equation solver to analytically determine solutions for zero-division patterns.
+  - Default: 0.2
+
+- statement_deletion_prob (f64)
+  - Purpose: Probability of deleting a statement during mutation.
+  - Default: 0.2
+
+- add_random_const_prob (f64)
+  - Purpose: Probability of adding a random constant during mutation.
+  - Default: 0.2
+
+- dissable_runtime_mutation_for_hash_check (bool)
+  - Purpose: When enabled, disables runtime mutation for hash checks.
+  - Default: false
+
+- dissable_heuristic_for_invalid_array_subscript (bool)
+  - Purpose: When enabled, disables heuristics that handle invalid array subscripts.
+  - Default: false
+
+- save_fitness_scores (bool)
+  - Purpose: Flag indicating whether fitness scores should be saved.
+  - Default: false</code></pre>
+        </details>
+      </section>
+
+      <section id="advanced" style="margin-top: 4rem; margin-bottom: 4rem;">
+        <h2 class="title is-2"><span class="icon mr-2">💡</span> Tips & Advanced Features</h2>
+
+        <div class="columns">
+          <div class="column is-6">
+            <h3 class="title is-4"><span class="icon mr-2">💾</span> Saving Output</h3>
+            <p>
+              When the <code>--save_output</code> option is enabled, the counterexample is saved to the directory when found.
+            </p>
+            <p class="mt-2"><strong>Example Command:</strong></p>
+            <pre><code class="language-bash">zkfuzz ./tests/sample/test_vuln_iszero.circom --search_mode="ga" --save_output</code></pre>
+            <p class="is-size-6 mt-1 has-text-grey">The output filename will follow the pattern <code>&lt;TARGET_FILE_NAME&gt;_&lt;RANDOM_SUFFIX&gt;_counterexample.json</code>.</p>
+          </div>
+
+          <div class="column is-6">
+            <h3 class="title is-4"><span class="icon mr-2">🧪</span> Verbose Logging</h3>
+            <p>
+              zkFuzz offers multiple verbosity levels via the <code>RUST_LOG</code> environment variable:
+            </p>
+            <div class="content">
+              <ul>
+                <li><code>warn</code>: Warnings and errors only.</li>
+                <li><code>info</code>: Adds basic statistics about the trace and constraints.</li>
+                <li><code>debug</code>: Adds the trace of the final state.</li>
+                <li><code>trace</code>: Outputs all intermediate trace states.</li>
+              </ul>
+            </div>
+            <p class="mt-2"><strong>Example Command:</strong></p>
+            <pre><code class="language-bash">RUST_LOG=trace zkfuzz target.circom --print_ast --print_stats</code></pre>
+          </div>
+        </div>
+
+        <h3 class="title is-4 mt-5">Example Output JSON</h3>
+        <pre><code class="language-json">{
+  "0_target_path": "./tests/sample/test_vuln_iszero.circom",
+  "1_main_template": "VulnerableIsZero",
+  "2_search_mode": "ga",
+  "3_execution_time": "36.3001ms",
+  "4_git_hash_of_zkfuzz": "106b20ddad6431d0eee3cd73f9aac0153af4bbd9",
+  "5_flag": {
+    "1_type": "UnderConstrained-NonDeterministic",
+    "2_expected_output": {
+      "name": "main.out",
+      "value": "0"
+    }
+  },
+  "6_target_output": "main.out",
+  "7_assignment": {
+    "main.in": "21888242871839275222246405745257275088548364400416034343698204186575808495524",
+    "main.inv": "0",
+    "main.out": "1"
+  },
+  "8_auxiliary_result": {
+    "mutation_test_config": {
+      "fitness_function": "error",
+      "max_generations": 300,
+      "mutation_rate": 0.3,
+      "...": "..."
+    },
+    "mutation_test_log": {
+      "fitness_score_log": [],
+      "generation": 7,
+      "random_seed": 13057132941229430025
+    }
+  }
+}</code></pre>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p class="has-text-grey">
+          <a href="../index.html" style="color: var(--primary-color);">zkFuzz Project</a> | 
+          <a href="https://github.com/Koukyosyumei/zkFuzz" target="_blank" style="color: var(--text-secondary);">GitHub</a>
+        </p>
+        <p class="is-size-7 has-text-dim">
+          &copy; 2026 Columbia University. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
