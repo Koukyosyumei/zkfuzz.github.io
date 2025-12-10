@@ -17,7 +17,7 @@
   --text-dim: #64748B;
   
   /* Borders & Glass */
-  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color: rgba(255, 255, 255, 0.2);
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.05);
   
@@ -395,4 +395,326 @@ strong, b,
     grid-template-columns: 1fr;
     gap: 1rem;
   }
+}
+
+/* =========================================
+   Message / Article Styling
+   ========================================= */
+.message {
+  background-color: transparent;
+}
+
+.message.is-dark .message-body {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  border-left: 4px solid var(--primary-color); /* Adds the Electric Blue accent */
+  box-shadow: var(--shadow-sm);
+}
+
+/* Ensure strong text inside the message pops */
+.message.is-dark .message-body strong {
+  color: var(--primary-color);
+}
+
+/* =========================================
+   Table Styling (Dark Mode)
+   ========================================= */
+.table {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: var(--border-radius);
+  overflow: hidden; /* Keeps corners rounded */
+}
+
+/* Header and Cell Borders */
+.table th, 
+.table td {
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.table th {
+  color: var(--text-primary) !important; /* 暗い色から明るいオフホワイトに変更 */
+  border-bottom: 2px solid var(--border-color) !important;
+  font-weight: 600; /* 少し太字にして視認性を向上 */
+}
+
+
+/* Striped Rows - alternating dark colors */
+.table.is-striped tbody tr:not(.is-selected):nth-child(even) {
+  background-color: var(--bg-accent);
+}
+
+/* Fix for status tags inside the table */
+.table .tag.is-light {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.table .tag.is-danger.is-light {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+}
+
+/* 偶数行の背景色（縞模様）も見やすく調整 */
+.table.is-striped tbody tr:not(.is-selected):nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* 行全体のホバー設定 */
+.table.is-hoverable tbody tr:not(.is-selected):hover {
+  /* 背景：うっすらと青いガラスのような色に */
+  background-color: rgba(59, 130, 246, 0.15) !important;
+
+  /* 発光表現：
+     1. 外側に広がる青い光 (0 0 20px ...)
+     2. 内側に鋭い光のライン (inset 0 0 1px ...) ボーダーのように見せるテクニック
+  */
+  box-shadow: 
+    0 0 20px rgba(59, 130, 246, 0.4), 
+    inset 0 0 2px rgba(59, 130, 246, 0.8) !important;
+
+  /* 影（光）を隣の行に隠されないように前面に出す */
+  position: relative;
+  z-index: 5;
+
+  /* アニメーションを滑らかに */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ホバー時のセル・文字の設定 */
+.table.is-hoverable tbody tr:not(.is-selected):hover td {
+  color: #ffffff !important; /* 真っ白な文字 */
+  
+  /* 文字自体も少しボヤッと光らせる */
+  text-shadow: 0 0 8px rgba(59, 130, 246, 0.8);
+  
+  /* セルの境界線も光の色に合わせる */
+  border-color: rgba(59, 130, 246, 0.4) !important;
+}
+
+/* =========================================
+   Tags Visibility Fix (Under/Over-constrained)
+   ========================================= */
+
+/* Under-constrained (Danger/Red) */
+.tag.is-danger.is-light {
+  background-color: rgba(239, 68, 68, 0.25) !important; /* 背景を少し濃く */
+  color: #ffaaaa !important; /* 文字を明るいパステルレッドに */
+  border: 1px solid rgba(239, 68, 68, 0.6); /* 枠線をつけて輪郭をはっきりさせる */
+  font-weight: 800 !important; /* 極太字にする */
+  letter-spacing: 0.02em;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); /* 全体をほんのり赤く光らせる */
+}
+
+/* Over-constrained (Warning/Yellow) */
+.tag.is-warning.is-light {
+  background-color: rgba(234, 179, 8, 0.25) !important; /* 背景を少し濃く */
+  color: #fef08a !important; /* 文字を明るい黄色に */
+  border: 1px solid rgba(234, 179, 8, 0.6); /* 枠線を追加 */
+  font-weight: 800 !important; /* 極太字にする */
+  letter-spacing: 0.02em;
+  box-shadow: 0 0 10px rgba(234, 179, 8, 0.2); /* 全体をほんのり黄色く光らせる */
+}
+
+/* =========================================
+   ZKP Workflow Diagram Styling
+   ========================================= */
+
+/* 図全体のコンテナ（ターミナル風ウィンドウ） */
+.zk-workflow {
+  background: var(--bg-secondary) !important; /* 暗い背景 */
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius-lg) !important;
+  padding: 3rem 2rem 2rem !important; /* 上部にタイトルバー用の余白 */
+  font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  white-space: pre; /* アスキーアートの崩れを防止 */
+  overflow-x: auto; /* スマホでの横スクロール対応 */
+  box-shadow: var(--shadow-md), inset 0 0 30px rgba(0, 0, 0, 0.3) !important; /* 奥行きのある影 */
+  position: relative;
+  text-align: left; /* 図自体は左寄せ */
+  display: inline-block; /* 中央揃えのためにインラインブロック化 */
+}
+
+/* ターミナルウィンドウの偽装トップバー */
+.zk-workflow::before {
+  content: '● ○ ○  zk_protocol_flow.asc'; /* Mac風のボタンとファイル名 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+  letter-spacing: 0.05em;
+}
+
+/* 図の中の強調キーワード設定 */
+.zk-highlight {
+  color: var(--accent-color); /* シアン（水色） */
+  font-weight: 800;
+  text-shadow: 0 0 8px var(--accent-color); /* 発光エフェクト */
+}
+
+.zk-highlight-secret {
+  color: #f87171; /* 赤色 */
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(248, 113, 113, 0.5);
+}
+
+.zk-highlight-proof {
+  color: var(--primary-color); /* エレクトリックブルー */
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+}
+
+/* スマホ表示時の調整 */
+@media screen and (max-width: 768px) {
+  .zk-workflow {
+    font-size: 0.7rem; /* フォントを小さくして画面に収まりやすく */
+    padding: 2.5rem 1rem 1rem !important;
+  }
+}
+
+/* =========================================
+   Feature Cards (What is zkFuzz)
+   ========================================= */
+.feature-card {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius-lg) !important;
+  padding: 2rem !important;
+  height: 100%; /* 高さを揃える */
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.3);
+}
+
+/* アイコンの背景 */
+.icon-box {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+}
+
+.feature-card:hover .icon-box {
+  background: var(--gradient-primary);
+  color: #fff;
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+
+/* =========================================
+   Terminal / Mockup Window
+   ========================================= */
+.mockup-window {
+  background: #1e1e1e; /* ターミナルの背景色（VSCode風） */
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  text-align: left;
+  position: relative;
+}
+
+.mockup-header {
+  background: #2d2d2d;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #333;
+}
+
+.mockup-title {
+  margin-left: 1rem;
+  color: #999;
+  font-size: 0.8rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+.dot.red { background-color: #ff5f56; }
+.dot.yellow { background-color: #ffbd2e; }
+.dot.green { background-color: #27c93f; }
+
+.mockup-content {
+  padding: 1.5rem;
+  color: #d4d4d4;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  position: relative;
+}
+
+.mockup-content pre {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+.mockup-content pre::before {
+  display: none; /* 既存のCSSの偽装ドットを消す */
+}
+
+/* Command Styles */
+.cmd-prompt {
+  color: #5af;
+  margin-right: 0.5rem;
+  user-select: none;
+}
+
+.cmd-output {
+  color: #a0a0a0;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.cmd-output.is-success {
+  color: #4ade80;
+  font-weight: bold;
+}
+
+/* Copy Button inside Terminal */
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.copy-btn:hover {
+  background: rgba(255,255,255,0.2);
 }

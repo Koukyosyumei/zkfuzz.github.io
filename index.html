@@ -6,7 +6,7 @@
   
   <meta name="title" content="zkFuzz: Foundation and Framework for Effective Fuzzing of Zero-Knowledge Circuits">
   <meta name="description" content="zkFuzz is a novel program mutation-based fuzzing framework for detecting vulnerabilities in Zero-Knowledge circuits, identifying 85 bugs including 59 zero-days in real-world circuits.">
-  <meta name="keywords" content="Zero-Knowledge Proofs, Fuzzing, Security, Circom, Circuit Verification, Software Testing, TCCT">
+  <meta name="keywords" content="Zero-Knowledge Proofs, ZKP, zkVM, Blockchain, Bitcoin, Fuzzing, Security, Circom, Formal Verification, Software Testing, TCCT">
   <meta name="author" content="Hideaki Takahashi, Jihwan Kim, Suman Jana, Junfeng Yang">
   <meta name="robots" content="index, follow">
   <meta name="language" content="English">
@@ -178,15 +178,28 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
+        
         <h2 class="title is-3">Securing the Zero-Knowledge Future</h2>
+        
+        <div class="subtitle is-5" style="color: var(--primary-color); font-weight: 600; margin-bottom: 1.5rem;">
+          <span class="icon"><i class="fas fa-award"></i></span>
+          Accepted at IEEE Symposium on Security and Privacy (S&P) 2026
+        </div>
+
         <div class="content has-text-justified">
           <p>
-            Zero-Knowledge Proofs (ZKPs) enable privacy-preserving computations and serve as a cornerstone for trustless systems. This project conducts research on both the theoretical foundations and practical implementations of effective fuzzers and verifiers to ensure the security of these systems.
+            Zero-Knowledge Proofs (ZKPs) are the bedrock of next-generation privacy and trustless scaling. 
+            However, the complexity of cryptographic circuits leaves them prone to critical vulnerabilities—where a single bug can compromise user privacy or drain millions in assets.
           </p>
+          
           <p>
-	  We target various ZK development frameworks, such as <strong>Circom</strong>, <strong>Noir</strong>, and <strong>Plonky3</strong>. To date, our tools have successfully identified <strong>over 70 bugs</strong> in real-world ZK circuits and zkVMs, significantly contributing to the security of the ZK ecosystem.
+            Developed at <strong>Columbia University</strong>, <strong>zkFuzz</strong> bridges the gap between <strong>theoretical foundations</strong> and <strong>practical security</strong>. 
+            Our research tackles the fundamental challenges of circuit verification while providing a robust framework for real-world testing.
+            To date, our tools have successfully identified more than <strong>70 zero-day</strong> bugs across the 
+            <strong>Circom</strong>, <strong>Noir</strong>, and <strong>Plonky3</strong> ecosystems.
           </p>
         </div>
+
       </div>
     </div>
   </div>
@@ -194,36 +207,102 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">What are Zero-Knowledge Proofs?</h2>
-        <div class="content has-text-justified">
-          <p>
-            Imagine being able to prove to a bouncer that you are over 21 years old, without handing over your ID card or revealing your actual birth date.
-          </p>
-          <p>
-            <strong>Zero-Knowledge Proofs (ZKPs)</strong> allow one party (the <em>Prover</em>) to prove to another (the <em>Verifier</em>) that a statement is true, without revealing any information beyond the validity of the statement itself.
-          </p>
-          
-          <div class="columns is-vcentered" style="margin-top: 20px;">
-            <div class="column is-6">
-              <h4 class="title is-5"><i class="fas fa-shield-alt"></i> Privacy</h4>
-              <p>
-                Users can verify computations (like a bank transfer) without exposing sensitive data (like the account balance or sender identity) on a public blockchain.
-              </p>
-            </div>
-            <div class="column is-6">
-              <h4 class="title is-5"><i class="fas fa-expand-arrows-alt"></i> Scalability</h4>
-              <p>
-                Complex computations can be performed off-chain. The blockchain only needs to verify the tiny ZK proof, which is exponentially faster and cheaper than re-running the computation.
-              </p>
-            </div>
-          </div>
+    <h2 class="title is-3 has-text-centered">What are Zero-Knowledge Proofs?</h2>
+    
+    <div class="content has-text-justified">
+      <p>
+        <strong>Zero-Knowledge Proofs (ZKPs)</strong> allow one party (the <em>Prover</em>) to prove to another (the <em>Verifier</em>) that a statement is true. This enables the Verifier to verify the proof <strong>succinctly</strong>, often exponentially faster than the original computation, <strong>without revealing any underlying secret</strong> information. This cryptographic magic fuels two major revolutions in blockchain:
+      </p>
+    </div>
 
-          <article class="message is-dark">
-            <div class="message-body">
-              <strong>The Security Challenge:</strong> While the cryptography behind ZKPs is robust, the <em>circuits</em> (the code written by developers) are prone to bugs. If a circuit is "under-constrained," it might allow a Prover to generate a valid proof for a false statement. <strong>This is exactly what zkFuzz is designed to detect.</strong>
-            </div>
-          </article>
+    <div class="content has-text-centered" style="margin: 3rem 0;">
+      <h4 class="title is-5 is-family-code" style="color: var(--accent-color); margin-bottom: 1rem;">
+        <i class="fas fa-microchip"></i> Workflow of ZKP
+      </h4>
+      <pre class="zk-workflow"><code>
+<span style="color: var(--text-secondary);">[</span> <span class="zk-highlight">PROVER</span> <span style="color: var(--text-secondary);">]</span>                                        <span style="color: var(--text-secondary);">[</span> <span class="zk-highlight">VERIFIER</span> <span style="color: var(--text-secondary);">]</span>
+   <span style="color: var(--border-color);">|</span>                                                  <span style="color: var(--border-color);">|</span>
+   <span style="color: var(--border-color);">|</span>-- [<span class="zk-highlight-secret">Secret Data</span>]                                  <span style="color: var(--border-color);">|</span>
+   <span style="color: var(--border-color);">|</span>      <span style="color: var(--text-dim);">  (Remains Private!)</span>                        <span style="color: var(--border-color);">|</span>
+   <span style="color: var(--border-color);">|</span>                                                  <span style="color: var(--border-color);">|</span>
+   <span style="color: var(--border-color);">|</span><span style="color: var(--text-primary);"> Run Proving Computation</span>                          <span style="color: var(--border-color);">|</span>
+   <span style="color: var(--border-color);">|</span>                                                  <span style="color: var(--border-color);">|</span>
+   <span style="color: var(--border-color);">+-----&gt</span> <span style="color: var(--text-secondary);"></span><span class="zk-highlight-proof">[ZK-Proof]</span><span style="color: var(--text-secondary);"></span> -----------------------------&gt;  <span style="color: var(--border-color);">|</span>
+               <span style="color: var(--text-dim);">(Reveals No Secrets)</span>                   <span style="color: var(--border-color);">|</span>
+                                                      <span style="color: var(--border-color);">|</span>
+                                                      <span style="color: var(--border-color);">|</span> 🔍 <span class="zk-highlight">Verify Proof</span>
+                                                      <span style="color: var(--border-color);">|</span>    <span style="color: var(--text-dim);">(Succinct & Fast)</span>
+                                                      <span style="color: var(--border-color);">|</span>
+   <span style="color: var(--border-color);">&lt;-----------------------------------------</span> <span style="color: var(--text-secondary);">[</span> <span style="color: #4ade80; text-shadow: 0 0 5px #4ade80;">✅ VALID</span> / <span style="color: #f87171; text-shadow: 0 0 5px #f87171;">❌ INVALID</span> <span style="color: var(--text-secondary);">]</span>
+</code></pre>
+    </div>
+
+    <div class="columns" style="margin-top: 2rem; margin-bottom: 2rem;">
+      
+      <div class="column is-6">
+        <h4 class="title is-5">
+          <span class="icon" style="color: var(--primary-color); margin-right: 0.5rem;">
+            <i class="fas fa-user-shield"></i>
+          </span>
+          Privacy
+        </h4>
+        <div class="content">
+          <p>
+            Users can verify facts without exposing sensitive data.
+          </p>
+          <ul>
+            <li><strong>Identity:</strong> Proving you are over 21 without revealing your birth date or ID card.</li>
+            <li><strong>Finance:</strong> Verifying a transaction is valid without disclosing the sender's balance.</li>
+          </ul>
         </div>
+      </div>
+
+      <div class="column is-6">
+        <h4 class="title is-5">
+          <span class="icon" style="color: var(--secondary-color); margin-right: 0.5rem;">
+            <i class="fas fa-layer-group"></i>
+          </span>
+          Scalability
+        </h4>
+        <div class="content">
+          <p>
+            Heavy computations run off-chain.
+          </p>
+          <ul>
+            <li><strong>Validity Rollups:</strong> Bundling thousands of transactions into a single batch and generating one tiny proof. The blockchain only verifies this proof, lowering gas costs.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <article class="message is-dark">
+      <div class="message-body">
+        <h5 class="title is-6" style="color: var(--text-primary); margin-bottom: 0.8rem;">
+          <span class="icon has-text-warning"><i class="fas fa-exclamation-triangle"></i></span> 
+          The Challenge: Circuit Vulnerabilities
+        </h5>
+        <p>
+          While the math is secure, the code (circuits) is fragile. Developers struggle to correctly implement circuits, leading to two opposing types of bugs. <strong>zkFuzz provides a unified framework to detect both:</strong>
+        </p>
+        
+        <div class="columns is-mobile" style="margin-top: 0.5rem;">
+          <div class="column">
+            <span class="tag is-danger is-light" style="margin-bottom: 0.5rem;">Under-constrained</span>
+            <p class="is-size-6">
+              <strong>(Soundness Error)</strong><br>
+              Missing constraints allow attackers to forge proofs for false statements (e.g., stealing funds).
+            </p>
+          </div>
+          <div class="column">
+            <span class="tag is-warning is-light" style="margin-bottom: 0.5rem;">Over-constrained</span>
+            <p class="is-size-6">
+              <strong>(Completeness Error)</strong><br>
+              Excessive constraints cause the system to reject valid proofs from honest users (DoS).
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -250,35 +329,74 @@
 </section>
 -->
 
-<section class="section hero">
+<section class="section">
   <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">What is zkFuzz?</h2>
-        <div class="content has-text-justified">
+    <h2 class="title is-3 has-text-centered">What is zkFuzz?</h2>
+    <div class="content" style="margin-bottom: 3rem;">
+      <p class="is-size-5">
+          <strong>zkFuzz</strong> is a novel mutation-based fuzzing framework designed to detect vulnerabilities in Zero-Knowledge (ZK) circuits. It automates the detection of soundness and completeness bugs that traditional static analyzers and formal verification tools often miss.
+      </p>
+    </div>
+
+    <div class="columns is-centered is-variable is-8 display-flex">
+      
+      <div class="column is-5-desktop is-6-tablet">
+        <div class="box feature-card">
+          <div class="icon-box">
+            <i class="fas fa-random"></i>
+          </div>
+          <h4 class="title is-5">Mutation-Based Fuzzing</h4>
           <p>
-            <strong>zkFuzz</strong> is a novel mutation-based fuzzing framework designed to detect vulnerabilities in Zero-Knowledge (ZK) circuits. It automates the detection of soundness and completeness bugs that traditional static analyzers often miss.
+            Unlike static analysis and formal verification tools, zkFuzz actively <strong>mutates</strong> the witness generation logic and injects edge-case inputs to trigger hidden vulnerabilities dynamically.
           </p>
-
-          <h4 class="title is-5">Core Technologies</h4>
-          <ul>
-            <li><strong>Trace-Constraint Consistency Test (TCCT):</strong> A language-independent formulation that captures both under-constrained (soundness) and over-constrained (completeness) vulnerabilities by analyzing the discrepancy between execution traces and circuit constraints.</li>
-            <li><strong>Mutation-Based Fuzzing:</strong> systematically mutates the witness generation logic and injects edge-case inputs to uncover hidden bugs without requiring manual specifications.</li>
-          </ul>
-
-          <h4 class="title is-5">Installation</h4>
-          <p>You can easily install zkFuzz via git. Ensure you have <code>Rust</code> installed.</p>
-          <pre><code class="language-bash">git clone https://github.com/Koukyosyumei/zkFuzz.git
-cd zkFuzz
-cargo build --release</code></pre>
-	  <br>
-
-	  <h4 class="title is-5">Usage</h4>
-	  <p>Run <strong>zkFuzz</strong> using your circuit file written in Circom:</p>
-	  <pre><code class="language-bash">zkfuzz ./tests/sample/iszero_vuln.circom</code></pre>
-    <img src="static/images/zkfuzz-cli-example-usage.gif">
         </div>
+      </div>
+
+      <div class="column is-5-desktop is-6-tablet">
+        <div class="box feature-card">
+          <div class="icon-box">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <h4 class="title is-5">Unified Formulation via TCCT</h4>
+          <p>
+            <strong>TCCT</strong> is the first theoretical model defining bugs as <strong>computation-constraint inconsistencies</strong>. This unified framework captures both <strong>soundness</strong> and <strong>completeness</strong> errors, surpassing prior theoretical definitions.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="columns is-centered" style="margin-top: 4rem;">
+      <div class="column is-10">
+        <h4 class="title is-5 has-text-centered is-family-code" style="margin-bottom: 1.5rem;">
+          <i class="fas fa-terminal"></i> Get Started in Seconds
+        </h4>
+        <div class="mockup-window">
+          <div class="mockup-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="mockup-title">user@zkfuzz:~</span>
+          </div>
+          <div class="mockup-content">
+            <button class="copy-btn" onclick="navigator.clipboard.writeText('git clone https://github.com/Koukyosyumei/zkFuzz.git && cd zkFuzz && cargo build --release')">
+              <i class="far fa-copy"></i>
+            </button>
+            <pre><code><span class="cmd-prompt">$</span> git clone https://github.com/Koukyosyumei/zkFuzz.git
+<span class="cmd-output">Cloning into 'zkFuzz'...</span>
+<span class="cmd-prompt">$</span> cd zkFuzz && cargo install --path ./
+<span class="cmd-output">Finished release [optimized] target(s) in 1.2s</span>
+<span class="cmd-prompt">$</span> zkfuzz target.circom</code></pre>
+            <div style="margin-top: 1.5rem; border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden; opacity: 0.8;">
+               <img src="static/images/zkfuzz-cli-example-usage.gif" alt="zkFuzz CLI Usage" style="width: 100%; display: block;"> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
   </div>
 </section>
-
 
 <section class="section hero is-light">
   <div class="container is-max-desktop">
