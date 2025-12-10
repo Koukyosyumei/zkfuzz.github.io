@@ -207,36 +207,81 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">What are Zero-Knowledge Proofs?</h2>
-        <div class="content has-text-justified">
-          <p>
-            Imagine being able to prove to a bouncer that you are over 21 years old, without handing over your ID card or revealing your actual birth date.
-          </p>
-          <p>
-            <strong>Zero-Knowledge Proofs (ZKPs)</strong> allow one party (the <em>Prover</em>) to prove to another (the <em>Verifier</em>) that a statement is true, without revealing any information beyond the validity of the statement itself.
-          </p>
-          
-          <div class="columns is-vcentered" style="margin-top: 20px;">
-            <div class="column is-6">
-              <h4 class="title is-5"><i class="fas fa-shield-alt"></i> Privacy</h4>
-              <p>
-                Users can verify computations (like a bank transfer) without exposing sensitive data (like the account balance or sender identity) on a public blockchain.
-              </p>
-            </div>
-            <div class="column is-6">
-              <h4 class="title is-5"><i class="fas fa-expand-arrows-alt"></i> Scalability</h4>
-              <p>
-                Complex computations can be performed off-chain. The blockchain only needs to verify the tiny ZK proof, which is exponentially faster and cheaper than re-running the computation.
-              </p>
-            </div>
-          </div>
+    <h2 class="title is-3 has-text-centered">What are Zero-Knowledge Proofs?</h2>
+    
+    <div class="content has-text-justified">
+      <p>
+        <strong>Zero-Knowledge Proofs (ZKPs)</strong> allow one party (the <em>Prover</em>) to prove to another (the <em>Verifier</em>) that a statement is true. This enables the Verifier to verify the proof <strong>succinctly</strong>, often exponentially faster than the original computation, without revealing any underlying secret information. This cryptographic magic fuels two major revolutions in blockchain:
+      </p>
+    </div>
 
-          <article class="message is-dark">
-            <div class="message-body">
-              <strong>The Security Challenge:</strong> While the cryptography behind ZKPs is robust, the <em>circuits</em> (the code written by developers) are prone to bugs. If a circuit is "under-constrained," it might allow a Prover to generate a valid proof for a false statement. <strong>This is exactly what zkFuzz is designed to detect.</strong>
-            </div>
-          </article>
+    <div class="columns" style="margin-top: 2rem; margin-bottom: 2rem;">
+      
+      <div class="column is-6">
+        <h4 class="title is-5">
+          <span class="icon" style="color: var(--primary-color); margin-right: 0.5rem;">
+            <i class="fas fa-user-shield"></i>
+          </span>
+          Privacy
+        </h4>
+        <div class="content">
+          <p>
+            Users can verify facts without exposing sensitive data.
+          </p>
+          <ul>
+            <li><strong>Identity:</strong> Proving you are over 21 without revealing your birth date or ID card.</li>
+            <li><strong>Finance:</strong> Verifying a transaction is valid without disclosing the sender's balance.</li>
+          </ul>
         </div>
+      </div>
+
+      <div class="column is-6">
+        <h4 class="title is-5">
+          <span class="icon" style="color: var(--secondary-color); margin-right: 0.5rem;">
+            <i class="fas fa-layer-group"></i>
+          </span>
+          Scalability
+        </h4>
+        <div class="content">
+          <p>
+            Heavy computations run off-chain.
+          </p>
+          <ul>
+            <li><strong>Validity Rollups:</strong> Bundling thousands of transactions into a single batch and generating one tiny proof. The blockchain only verifies this proof, lowering gas costs.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <article class="message is-dark">
+      <div class="message-body">
+        <h5 class="title is-6" style="color: var(--text-primary); margin-bottom: 0.8rem;">
+          <span class="icon has-text-warning"><i class="fas fa-exclamation-triangle"></i></span> 
+          The Challenge: Circuit Vulnerabilities
+        </h5>
+        <p>
+          While the math is secure, the code (circuits) is fragile. Developers struggle to correctly implement circuits, leading to two opposing types of bugs. <strong>zkFuzz provides a unified framework to detect both:</strong>
+        </p>
+        
+        <div class="columns is-mobile" style="margin-top: 0.5rem;">
+          <div class="column">
+            <span class="tag is-danger is-light" style="margin-bottom: 0.5rem;">Under-constrained</span>
+            <p class="is-size-6">
+              <strong>(Soundness Error)</strong><br>
+              Missing constraints allow attackers to forge proofs for false statements (e.g., stealing funds).
+            </p>
+          </div>
+          <div class="column">
+            <span class="tag is-warning is-light" style="margin-bottom: 0.5rem;">Over-constrained</span>
+            <p class="is-size-6">
+              <strong>(Completeness Error)</strong><br>
+              Excessive constraints cause the system to reject valid proofs from honest users (DoS).
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+    
   </div>
 </section>
 

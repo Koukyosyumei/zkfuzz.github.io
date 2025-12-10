@@ -493,3 +493,27 @@ strong, b,
   /* セルの境界線も光の色に合わせる */
   border-color: rgba(59, 130, 246, 0.4) !important;
 }
+
+/* =========================================
+   Tags Visibility Fix (Under/Over-constrained)
+   ========================================= */
+
+/* Under-constrained (Danger/Red) */
+.tag.is-danger.is-light {
+  background-color: rgba(239, 68, 68, 0.25) !important; /* 背景を少し濃く */
+  color: #ffaaaa !important; /* 文字を明るいパステルレッドに */
+  border: 1px solid rgba(239, 68, 68, 0.6); /* 枠線をつけて輪郭をはっきりさせる */
+  font-weight: 800 !important; /* 極太字にする */
+  letter-spacing: 0.02em;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); /* 全体をほんのり赤く光らせる */
+}
+
+/* Over-constrained (Warning/Yellow) */
+.tag.is-warning.is-light {
+  background-color: rgba(234, 179, 8, 0.25) !important; /* 背景を少し濃く */
+  color: #fef08a !important; /* 文字を明るい黄色に */
+  border: 1px solid rgba(234, 179, 8, 0.6); /* 枠線を追加 */
+  font-weight: 800 !important; /* 極太字にする */
+  letter-spacing: 0.02em;
+  box-shadow: 0 0 10px rgba(234, 179, 8, 0.2); /* 全体をほんのり黄色く光らせる */
+}
