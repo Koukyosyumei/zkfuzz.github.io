@@ -996,3 +996,65 @@ strong, b,
   -webkit-text-fill-color: transparent;
   display: inline-block; /* グラデーションを綺麗に見せるために必要 */
 }
+
+/* =========================================
+   Main Title (Aurora Glow Effect)
+   ========================================= */
+
+.publication-title {
+  /* 4色のネオンカラーを複雑にブレンドしたグラデーション */
+  background: linear-gradient(
+    135deg, 
+    #3b82f6 0%,   /* Electric Blue */
+    #8b5cf6 25%,  /* Violet */
+    #ec4899 50%,  /* Neon Pink */
+    #06b6d4 75%,  /* Cyan */
+    #3b82f6 100%  /* Loop back */
+  );
+  
+  /* テキストで切り抜く */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent;
+  
+  /* グラデーションを大きく引き伸ばす */
+  background-size: 300% 300%;
+  
+  /* アニメーション: 
+     ease-in-out = ゆっくり動き出し、ゆっくり止まる（有機的な動き）
+     alternate = 行ったり来たりさせることで色の混ざり方を変える
+  */
+  animation: aurora-flow 8s ease-in-out infinite alternate;
+  
+  /* 初期の発光（控えめ） */
+  filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.3));
+  
+  display: inline-block;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: default;
+}
+
+/* ホバー時のインタラクション: ふわりと浮き上がり、強い光を放つ */
+.publication-title:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.6)); /* 紫色の強い光 */
+}
+
+/* アニメーション定義: 色の位置を動かしつつ、影（光）の色も同期させる */
+@keyframes aurora-flow {
+  0% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.3)); /* 青い光 */
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.4)); /* ピンクの光 */
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 12px rgba(6, 182, 212, 0.3)); /* シアンの光 */
+  }
+}
