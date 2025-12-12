@@ -1160,3 +1160,34 @@ strong, b,
     justify-content: center;
   }
 }
+
+/* =========================================
+   Subtitle Styling (Sophisticated Look)
+   ========================================= */
+
+.publication-subtitle {
+  /* 真っ白(#fff)ではなく、少し青みのあるグレーにして深みを出す */
+  color: #94a3b8 !important; /* Slate 400 */
+  
+  /* もしくは、背景になじむ半透明の白 */
+  /* color: rgba(255, 255, 255, 0.8) !important; */
+
+  font-size: 1.5rem !important; /* 少し控えめなサイズ感に */
+  font-weight: 400 !important;  /* 細くしてエレガントに */
+  line-height: 1.5 !important;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;/*1rem !important;*/
+  margin-bottom: auto; /*1.5rem !important;*/
+  
+  /* ほんの少しだけ発光させて、背景に埋没しないようにする */
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+/* スマホではさらに少し小さくして読みやすく */
+@media screen and (max-width: 768px) {
+  .publication-subtitle {
+    font-size: 1.1rem !important;
+  }
+}
